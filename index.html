@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Surprise</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8d7f1 0%, #f0e6f6 50%, #e8d7f1 100%);
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: auto;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            opacity: 0.1;
+            pointer-events: none;
+            overflow: hidden;
+            line-height: 1.8;
+            word-wrap: break-word;
+            z-index: 0;
+        }
+
+        /* Main card container */
+        .card-container {
+            /* 🎨 BACKGROUND IMAGE - PASTE YOUR IMAGE PATH HERE */
+            /* Change 'lavender.png' to your image filename if different */
+            background: url("lavenndar.png") center/cover no-repeat, linear-gradient(135deg, #e8d7f1 0%, #f0e6f6 100%);
+            background-attachment: fixed;
+            border-radius: 40px;
+            padding: 50px 40px;
+            max-width: 390px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(123, 85, 175, 0.15);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* PAGE SYSTEM */
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* HEADINGS */
+        h1 {
+            color: #6b4c9a;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .instruction-text {
+            color: #9b8ab5;
+            font-size: 16px;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        /* GIFT BOX (Main CTA) */
+        .gift-box {
+            font-size: 100px;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-box:active {
+            transform: scale(0.95);
+        }
+
+        /* GIFT SELECTION GRID */
+        .gift-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .gift-item {
+            background: linear-gradient(135deg, #e8d7f1 0%, #f0e6f6 100%);
+            border: 2px solid #d4c4e8;
+            border-radius: 20px;
+            padding: 25px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(107, 76, 154, 0.1);
+        }
+
+        .gift-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(107, 76, 154, 0.2);
+            border-color: #b8a8d8;
+        }
+
+        .gift-item-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .gift-item-label {
+            color: #6b4c9a;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* MEMORY SECTION */
+        .memory-section {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .memory-frame {
+            background: linear-gradient(135deg, #f5f0ff 0%, #faf7ff 100%);
+            border: 2px solid #d4c4e8;
+            border-radius: 15px;
+            padding: 15px;
+            width: 140px;
+        }
+
+        .memory-frame.large {
+            width: 160px;
+        }
+
+        .memory-frame-img {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #e8d7f1 0%, #d9c8e8 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .memory-caption {
+            color: #6b4c9a;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* PHOTO GALLERY GRID */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .photo-item {
+            background: linear-gradient(135deg, #e8d7f1 0%, #d9c8e8 100%);
+            border: 2px solid #d4c4e8;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(107, 76, 154, 0.1);
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(107, 76, 154, 0.2);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-item-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        /* SINGLE MEMORY IMAGE */
+        .single-gallery {
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo-item.single {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            aspect-ratio: auto;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .photo-item.single img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 20px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            background: linear-gradient(135deg, #d8a5d9 0%, #c89cc8 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(216, 165, 217, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(216, 165, 217, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-back {
+            background: #e8d7f1;
+            color: #6b4c9a;
+        }
+
+        /* CONTENT BOX */
+        .content-box {
+            background: white;
+            border: 2px solid #e8d7f1;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .content-box h3 {
+            color: #6b4c9a;
+            margin-bottom: 15px;
+        }
+
+        .content-box p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* AUDIO PLAYER */
+        audio {
+            width: 100%;
+            margin: 20px 0;
+            accent-color: #d8a5d9;
+        }
+
+        /* FLOWERS & SONG CONTAINER */
+        .flowers-song-container {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        /* SONG SECTION - LEFT SIDE */
+        .song-section {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border: 2px solid #e8d7f1;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(107, 76, 154, 0.1);
+        }
+
+        .song-label {
+            color: #6b4c9a;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #song-player {
+            width: 100%;
+            margin: 15px 0;
+            accent-color: #d8a5d9;
+            border-radius: 8px;
+        }
+
+        .song-description {
+            color: #9b8ab5;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* FLOWER DISPLAY - RIGHT SIDE */
+        .flower-display {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .large-flower {
+            font-size: 60px;
+            animation: floatFlower 3s ease-in-out infinite;
+        }
+
+        @keyframes floatFlower {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .card-container {
+                padding: 30px 25px;
+                border-radius: 30px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .gift-item {
+                width: 100px;
+                height: 100px;
+                padding: 20px;
+            }
+
+            .gift-item-icon {
+                font-size: 40px;
+            }
+
+            .memory-frame {
+                width: 110px;
+            }
+
+            .memory-frame.large {
+                width: 130px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="card-container">
+   <!-- PAGE 1: OPENING SCREEN -->
+   <div id="p1" class="page active">
+    <h1 id="main-heading"</style="margin-top: 500px; ">HAPPY VALENTINES DAY!</h1>
+    <p class="instruction-text" id="opening-instruction"> My love:)</p></p>
+    <div class="gift-box" onclick="go('p2')">
+        <img src="heart.png">
+    </div>
+   </div>
+
+   <!-- PAGE 2: GIFT SELECTION -->
+   <div id="p2" class="page">
+    <h1 id="second-heading">MADE JUST FOR YOU</h1>
+    <p class="instruction-text" id="second-instruction">Mahhh Bheebiiii;P</p>
+    <div class="gift-grid">
+     <div class="gift-item" onclick="go('pPhotos')">
+      <div class="gift-item-icon"> <img src="roses.gif" </div>
+      <div class="gift-item-label" style width 80%>
+      </div>
+     </div>
+     <div class="gift-item" onclick="go('pGallery')">
+      <div class="gift-item-icon"> <img src="200w.webp" alt=""></div>
+      <div class="gift-item-label"></div>
+     </div>
+     <div class="gift-item" onclick="go('pLetter')">
+      <div class="gift-item-icon"> <img src="loveletter.gif" alt="loveletter.gif"></div>
+      <div class="gift-item-label"></div>
+     </div>
+    </div>
+    <button class="btn btn-back" onclick="go('p1')">Back</button>
+   </div>
+
+   <!-- PAGE 3: LOVE LETTER -->
+   <div id="pLetter" class="page">
+    <h1 id="letter-heading">ℍ𝔸ℙℙ𝕐 𝕍𝔸𝕃𝔼ℕ𝕋𝕀ℕ𝔼𝕊 𝔻𝔸𝕐 𝕄𝕐 𝕃𝕆𝕍𝔼! :D
+</h1>
+    <div class="content-box">
+     <h3></h3>
+     <p id="letter-message">I know we haven't put a label on things yet, but I really love what we have. Those moments we shared together.
+
+    you’re the only one I want to spend my Whole life with.
+
+I Love You So Much
+Aslei!!!!~~~~ :)
+
+Will you be my Valentine? :) </p>
+    </div>
+    <button class="btn btn-back" onclick="go('p2')">Back</button>
+   </div>
+
+   <!-- PAGE 4: FLOWERS & SONG -->
+   <div id="pPhotos" class="page">
+    <h1 id="memory-title">𝚙𝚒𝚌𝚔𝚎𝚍 𝚜𝚘𝚗𝚐 𝚏𝚘𝚛 𝚢𝚘𝚞:) </h1>
+    <div class="flowers-song-container">
+     <div class="song-section">
+      <p class="song-label">🎵 Espresso:</p>
+      <audio id="song-player" controls>
+       <source src="Espresso.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      </audio>
+      <p class="song-description" id="song-description"></p>
+     </div>
+     <div class="flower-display">
+      <div class="large-flower"> <img src="rose.png"> </div>
+     </div>
+    </div>
+    <button class="btn btn-back" onclick="go('p2')">Back</button>
+   </div>
+
+   <!-- PAGE 5: MEMORIES (Second version) -->
+   <div id="pMemories" class="page">
+    <h1 id="memories-alt-title">MOMENTS THAT I HOLD CLOSER</h1>
+    <div class="memory-section" style="justify-content: center;">
+     <div class="memory-frame">
+      <div class="memory-frame-img">💕</div>
+      <p class="memory-caption">Our first kiss</p>
+     </div>
+     <div class="memory-frame">
+      <div class="memory-frame-img">🌙</div>
+      <p class="memory-caption">Late night talks</p>
+     </div>
+     <div class="memory-frame">
+      <div class="memory-frame-img">🌸</div>
+      <p class="memory-caption">Perfect moments</p>
+     </div>
+    </div>
+    <button class="btn btn-back" onclick="go('p2')">Back</button>
+   </div>
+
+   <!-- PAGE 6: COUPLE PHOTO GALLERY -->
+   <div id="pGallery" class="page">
+    <h1 id="gallery-title"></h1></h1>
+    <div class="photo-gallery single-gallery" id="photo-gallery">
+      <div class="photo-item single">
+        <img src="memories.png" alt="Our Love Story">
+      </div>
+    </div>
+    <button class="btn btn-back" onclick="go('p2')">Back</button>
+   </div>
+
+  </div>
+
+  <script>
+    // Default configuration with all editable text
+    const defaultConfig = {
+        main_heading: "HAPPY VALENTINES DAY!",
+        opening_instruction: "CLICK THE GIFT TO OPEN YOUR SURPRISE",
+        second_heading: "MADE JUST FOR YOU",
+        second_instruction: " Mahh bheebeiiii;P",
+        letter_heading: "FOR YOU",
+        letter_message: "Write your heartfelt message here. This is your chance to express your feelings and share what she means to you. The more personal, the better! 💜",
+        memory_title: "PIECES OF US",
+        memory_caption_1: "Pieces of us",
+        memory_caption_2: "Moment 1",
+        memory_caption_3: "Moment 2",
+        memory_caption_4: "Our favorite memory",
+        memories_alt_title: "MOMENTS THAT I HOLD CLOSER"
+    };
+
+    let config = { ...defaultConfig };
+
+    // Update UI based on config
+    async function onConfigChange(newConfig) {
+        config = newConfig;
+        
+        document.getElementById('main-heading').textContent = config.main_heading || defaultConfig.main_heading;
+        document.getElementById('opening-instruction').textContent = config.opening_instruction || defaultConfig.opening_instruction;
+        document.getElementById('second-heading').textContent = config.second_heading || defaultConfig.second_heading;
+        document.getElementById('second-instruction').textContent = config.second_instruction || defaultConfig.second_instruction;
+        document.getElementById('letter-heading').textContent = config.letter_heading || defaultConfig.letter_heading;
+        document.getElementById('letter-message').textContent = config.letter_message || defaultConfig.letter_message;
+        document.getElementById('memory-title').textContent = config.memory_title || defaultConfig.memory_title;
+        document.getElementById('memory-caption-1').textContent = config.memory_caption_1 || defaultConfig.memory_caption_1;
+        document.getElementById('memory-caption-2').textContent = config.memory_caption_2 || defaultConfig.memory_caption_2;
+        document.getElementById('memory-caption-3').textContent = config.memory_caption_3 || defaultConfig.memory_caption_3;
+        document.getElementById('memory-caption-4').textContent = config.memory_caption_4 || defaultConfig.memory_caption_4;
+        document.getElementById('memories-alt-title').textContent = config.memories_alt_title || defaultConfig.memories_alt_title;
+    }
+
+    function mapToEditPanelValues(cfg) {
+        return new Map([
+            ["main_heading", cfg.main_heading || defaultConfig.main_heading],
+            ["opening_instruction", cfg.opening_instruction || defaultConfig.opening_instruction],
+            ["second_heading", cfg.second_heading || defaultConfig.second_heading],
+            ["second_instruction", cfg.second_instruction || defaultConfig.second_instruction],
+            ["letter_heading", cfg.letter_heading || defaultConfig.letter_heading],
+            ["letter_message", cfg.letter_message || defaultConfig.letter_message],
+            ["memory_title", cfg.memory_title || defaultConfig.memory_title],
+            ["memory_caption_1", cfg.memory_caption_1 || defaultConfig.memory_caption_1],
+            ["memory_caption_2", cfg.memory_caption_2 || defaultConfig.memory_caption_2],
+            ["memory_caption_3", cfg.memory_caption_3 || defaultConfig.memory_caption_3],
+            ["memory_caption_4", cfg.memory_caption_4 || defaultConfig.memory_caption_4],
+            ["memories_alt_title", cfg.memories_alt_title || defaultConfig.memories_alt_title]
+        ]);
+    }
+
+    function mapToCapabilities(cfg) {
+        return {
+            recolorables: [],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+        };
+    }
+
+    if (window.elementSdk) {
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange,
+            mapToCapabilities,
+            mapToEditPanelValues
+        });
+    }
+
+    function go(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+</script>
+
+<script>
+(function(){
+  function c(){
+    var b=a.contentDocument||a.contentWindow.document;
+    if(b){
+      var d=b.createElement('script');
+      d.innerHTML="window.__CF$cv$params={r:'9c9fd89c21f0b9f6',t:'MTc3MDQzNTQyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+      b.getElementsByTagName('head')[0].appendChild(d)
+    }
+  }
+  if(document.body){
+    var a=document.createElement('iframe');
+    a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';
+    document.body.appendChild(a);
+    if('loading'!==document.readyState)c();
+    else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+    else{
+      var e=document.onreadystatechange||function(){};
+      document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}
+    }
+  }
+})();
+</script>
+</body>
+</html>
