@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valentine Surprise</title>
-  <script src="/_sdk/element_sdk.js"></script>
+
   <style>
         body {
             box-sizing: border-box;
@@ -52,8 +52,6 @@
 
         /* Main card container */
         .card-container {
-            /* 🎨 BACKGROUND IMAGE - PASTE YOUR IMAGE PATH HERE */
-            /* Change 'lavender.png' to your image filename if different */
             background: url("lavenndar.png") center/cover no-repeat, linear-gradient(135deg, #e8d7f1 0%, #f0e6f6 100%);
             background-attachment: fixed;
             border-radius: 40px;
@@ -427,15 +425,13 @@
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
  <body>
   <div class="card-container">
    <!-- PAGE 1: OPENING SCREEN -->
    <div id="p1" class="page active">
     <h1 id="main-heading"</style="margin-top: 500px; ">HAPPY VALENTINES DAY!</h1>
-    <p class="instruction-text" id="opening-instruction"> My love:)</p></p>
+    <p class="instruction-text" id="opening-instruction"> My love:)</p>
     <div class="gift-box" onclick="go('p2')">
         <img src="heart.png">
     </div>
@@ -474,9 +470,7 @@
     you’re the only one I want to spend my Whole life with.
 
 I Love You So Much
-Aslei!!!!~~~~ :)
-
-Will you be my Valentine? :) </p>
+Aslei!!!!~~~~ :)</p>
     </div>
     <button class="btn btn-back" onclick="go('p2')">Back</button>
    </div>
@@ -521,7 +515,7 @@ Will you be my Valentine? :) </p>
 
    <!-- PAGE 6: COUPLE PHOTO GALLERY -->
    <div id="pGallery" class="page">
-    <h1 id="gallery-title"></h1></h1>
+    <h1 id="gallery-title"></h1>
     <div class="photo-gallery single-gallery" id="photo-gallery">
       <div class="photo-item single">
         <img src="memories.png" alt="Our Love Story">
@@ -552,86 +546,4 @@ Will you be my Valentine? :) </p>
     let config = { ...defaultConfig };
 
     // Update UI based on config
-    async function onConfigChange(newConfig) {
-        config = newConfig;
-        
-        document.getElementById('main-heading').textContent = config.main_heading || defaultConfig.main_heading;
-        document.getElementById('opening-instruction').textContent = config.opening_instruction || defaultConfig.opening_instruction;
-        document.getElementById('second-heading').textContent = config.second_heading || defaultConfig.second_heading;
-        document.getElementById('second-instruction').textContent = config.second_instruction || defaultConfig.second_instruction;
-        document.getElementById('letter-heading').textContent = config.letter_heading || defaultConfig.letter_heading;
-        document.getElementById('letter-message').textContent = config.letter_message || defaultConfig.letter_message;
-        document.getElementById('memory-title').textContent = config.memory_title || defaultConfig.memory_title;
-        document.getElementById('memory-caption-1').textContent = config.memory_caption_1 || defaultConfig.memory_caption_1;
-        document.getElementById('memory-caption-2').textContent = config.memory_caption_2 || defaultConfig.memory_caption_2;
-        document.getElementById('memory-caption-3').textContent = config.memory_caption_3 || defaultConfig.memory_caption_3;
-        document.getElementById('memory-caption-4').textContent = config.memory_caption_4 || defaultConfig.memory_caption_4;
-        document.getElementById('memories-alt-title').textContent = config.memories_alt_title || defaultConfig.memories_alt_title;
-    }
-
-    function mapToEditPanelValues(cfg) {
-        return new Map([
-            ["main_heading", cfg.main_heading || defaultConfig.main_heading],
-            ["opening_instruction", cfg.opening_instruction || defaultConfig.opening_instruction],
-            ["second_heading", cfg.second_heading || defaultConfig.second_heading],
-            ["second_instruction", cfg.second_instruction || defaultConfig.second_instruction],
-            ["letter_heading", cfg.letter_heading || defaultConfig.letter_heading],
-            ["letter_message", cfg.letter_message || defaultConfig.letter_message],
-            ["memory_title", cfg.memory_title || defaultConfig.memory_title],
-            ["memory_caption_1", cfg.memory_caption_1 || defaultConfig.memory_caption_1],
-            ["memory_caption_2", cfg.memory_caption_2 || defaultConfig.memory_caption_2],
-            ["memory_caption_3", cfg.memory_caption_3 || defaultConfig.memory_caption_3],
-            ["memory_caption_4", cfg.memory_caption_4 || defaultConfig.memory_caption_4],
-            ["memories_alt_title", cfg.memories_alt_title || defaultConfig.memories_alt_title]
-        ]);
-    }
-
-    function mapToCapabilities(cfg) {
-        return {
-            recolorables: [],
-            borderables: [],
-            fontEditable: undefined,
-            fontSizeable: undefined
-        };
-    }
-
-    if (window.elementSdk) {
-        window.elementSdk.init({
-            defaultConfig,
-            onConfigChange,
-            mapToCapabilities,
-            mapToEditPanelValues
-        });
-    }
-
-    function go(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
-</script>
-
-<script>
-(function(){
-  function c(){
-    var b=a.contentDocument||a.contentWindow.document;
-    if(b){
-      var d=b.createElement('script');
-      d.innerHTML="window.__CF$cv$params={r:'9c9fd89c21f0b9f6',t:'MTc3MDQzNTQyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
-      b.getElementsByTagName('head')[0].appendChild(d)
-    }
-  }
-  if(document.body){
-    var a=document.createElement('iframe');
-    a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';
-    document.body.appendChild(a);
-    if('loading'!==document.readyState)c();
-    else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
-    else{
-      var e=document.onreadystatechange||function(){};
-      document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}
-    }
-  }
-})();
-</script>
-</body>
-</html>
+    async function onConfigChange(newConfig)
